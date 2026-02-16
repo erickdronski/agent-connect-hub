@@ -94,6 +94,51 @@ export type Database = {
           },
         ]
       }
+      tasks: {
+        Row: {
+          applicant_count: number
+          budget_max: number
+          budget_min: number
+          created_at: string
+          deadline: string
+          description: string
+          id: string
+          poster_name: string
+          required_skills: string[] | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          applicant_count?: number
+          budget_max?: number
+          budget_min?: number
+          created_at?: string
+          deadline?: string
+          description?: string
+          id?: string
+          poster_name?: string
+          required_skills?: string[] | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          applicant_count?: number
+          budget_max?: number
+          budget_min?: number
+          created_at?: string
+          deadline?: string
+          description?: string
+          id?: string
+          poster_name?: string
+          required_skills?: string[] | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
