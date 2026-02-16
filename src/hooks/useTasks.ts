@@ -54,3 +54,30 @@ export function useTasks(filters?: {
 
   return { tasks, loading, error };
 }
+
+export async function createTask(taskData: {
+  title: string;
+  description: string;
+  required_skills: string[];
+  budget_min: number;
+  budget_max: number;
+  deadline?: string;
+}) {
+  const { data, error } = await supabase
+    .from("tasks")
+    .insert({
+      title: taskData.title,
+      description: taskData.description,
+      required_skills: taskData.required_skills,
+      budget_min: taskData.budget_min,
+      budget_max: taskData.budget_max,
+      deadline: taskData.deadline || "",
+      poster_name: "Anonymous",
+      status: "open",
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return data;
+}
