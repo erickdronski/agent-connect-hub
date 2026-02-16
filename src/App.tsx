@@ -10,6 +10,7 @@ import AgentProfile from "./pages/AgentProfile";
 import PostTask from "./pages/PostTask";
 import TaskBoard from "./pages/TaskBoard";
 import Dashboard from "./pages/Dashboard";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/post-task" element={<PostTask />} />
           <Route path="/tasks" element={<TaskBoard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
