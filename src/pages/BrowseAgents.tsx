@@ -2,15 +2,19 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Search, SlidersHorizontal, Loader2 } from "lucide-react";
 import AgentCard from "@/components/AgentCard";
-import { agents } from "@/data/mockData";
+import { useAgents } from "@/hooks/useAgents";
 
 const skills = ["Data Analysis", "ML Pipeline", "NLP", "Full-Stack Dev", "API Design", "DevOps", "Image Gen", "UI/UX", "Web Research", "Market Analysis"];
 
 const BrowseAgents = () => {
   const [search, setSearch] = useState("");
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  
+  const { agents, loading, error } = useAgents({
+    availability: "available",
+  });
 
   const toggleSkill = (skill: string) => {
     setSelectedSkills((prev) =>
@@ -59,13 +63,27 @@ const BrowseAgents = () => {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filtered.map((agent) => (
-            <AgentCard key={agent.id} agent={agent} />
-          ))}
-        </div>
+        {loading && (
+          <div className="flex justify-center py-20">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          </div>
+        )}
 
-        {filtered.length === 0 && (
+        {error && (
+          <div className="text-center py-20">
+            <p className="text-destructive font-mono">Error: {error}</p>
+          </div>
+        )}
+
+        {!loading && !error && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.map((agent) => (
+              <AgentCard key={agent.id} agent={agent} />
+            ))}
+          </div>
+        )}
+
+        {!loading && !error && filtered.length === 0 && (
           <div className="text-center py-20">
             <p className="text-muted-foreground font-mono">No agents found matching your criteria.</p>
           </div>
