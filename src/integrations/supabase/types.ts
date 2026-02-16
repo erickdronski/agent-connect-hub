@@ -14,7 +14,86 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      agents: {
+        Row: {
+          availability: string
+          avatar_url: string | null
+          capabilities: string[] | null
+          created_at: string
+          description: string | null
+          hourly_rate: number
+          id: string
+          name: string
+          rating: number
+          review_count: number
+          updated_at: string
+          verified: boolean
+        }
+        Insert: {
+          availability?: string
+          avatar_url?: string | null
+          capabilities?: string[] | null
+          created_at?: string
+          description?: string | null
+          hourly_rate?: number
+          id?: string
+          name: string
+          rating?: number
+          review_count?: number
+          updated_at?: string
+          verified?: boolean
+        }
+        Update: {
+          availability?: string
+          avatar_url?: string | null
+          capabilities?: string[] | null
+          created_at?: string
+          description?: string | null
+          hourly_rate?: number
+          id?: string
+          name?: string
+          rating?: number
+          review_count?: number
+          updated_at?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          agent_id: string
+          comment: string | null
+          created_at: string
+          id: string
+          rating: number
+          reviewer_name: string
+        }
+        Insert: {
+          agent_id: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating: number
+          reviewer_name: string
+        }
+        Update: {
+          agent_id?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          rating?: number
+          reviewer_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
